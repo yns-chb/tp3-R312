@@ -1,0 +1,217 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicModele from "../../components/GraphicModele.astro";
+---
+
+<Layout>
+    <main class="slider-page">
+        <header class="slider-header">
+            <p class="eyebrow">Jeu de données automobile</p>
+            <h1>Explorer les voitures</h1>
+            <p class="intro">
+                Faites défiler les graphiques ou utilisez les ancres pour
+                comparer différentes caractéristiques des voitures.
+            </p>
+        </header>
+
+        <nav class="anchor-menu" aria-label="Navigation entre les graphiques">
+            <a class="menu-item [&.active]:bg-amber-200" href="#performance"
+                >Performance</a
+            >
+            <a class="menu-item [&.active]:bg-amber-200" href="#weight">Poids</a
+            >
+            <a class="menu-item [&.active]:bg-amber-200" href="#engine"
+                >Moteur</a
+            >
+        </nav>
+
+        <section class="slider" aria-label="Graphiques des voitures">
+            <article class="slide item" id="performance">
+                <div class="slide-heading">
+                    <span class="slide-number">01</span>
+                    <div>
+                        <h2>Performance et consommation</h2>
+                        <p>La puissance comparée à l'économie de carburant</p>
+                    </div>
+                </div>
+                <GraphicModele view="performance" />
+            </article>
+
+            <article class="slide item" id="weight">
+                <div class="slide-heading">
+                    <span class="slide-number">02</span>
+                    <div>
+                        <h2>Poids et puissance</h2>
+                        <p>Le poids du véhicule comparé à sa puissance</p>
+                    </div>
+                </div>
+                <GraphicModele view="weight" />
+            </article>
+
+            <article class="slide item" id="engine">
+                <div class="slide-heading">
+                    <span class="slide-number">03</span>
+                    <div>
+                        <h2>Moteur et accélération</h2>
+                        <p>La cylindrée comparée au temps de 0 à 60 mph</p>
+                    </div>
+                </div>
+                <GraphicModele view="engine" />
+            </article>
+        </section>
+    </main>
+</Layout>
+
+<script>
+    const menuItems = document.querySelectorAll(".menu-item");
+    const items = document.querySelectorAll(".item");
+
+    console.log("menuItems", menuItems);
+    console.log("items", items);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const id = entry.target.getAttribute("id");
+                const menuItem = document.querySelector(
+                    `.menu-item[href="#${id}"]`,
+                );
+
+                if (entry.isIntersecting) {
+                    menuItem?.classList.add("active");
+                } else {
+                    menuItem?.classList.remove("active");
+                }
+            });
+        },
+        { threshold: 0.5 },
+    );
+
+    items.forEach((item) => observer.observe(item));
+</script>
+
+<style>
+    .slider-page {
+        min-height: 100vh;
+        background: #fffbeb;
+        color: #1c1917;
+        padding: 3.5rem clamp(1.25rem, 5vw, 5rem) 5rem;
+    }
+
+    .slider-header,
+    .anchor-menu,
+    .slider {
+        max-width: 72rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .eyebrow {
+        color: #b45309;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        margin: 0.65rem 0 0;
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    .intro {
+        max-width: 38rem;
+        color: #57534e;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin: 1.25rem 0 0;
+    }
+
+    .anchor-menu {
+        display: flex;
+        gap: 0.6rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        overflow-x: auto;
+        padding: 0.25rem 0 0.75rem;
+    }
+
+    .anchor-menu a {
+        flex: 0 0 auto;
+        border: 1px solid #d6d3d1;
+        border-radius: 999px;
+        color: #44403c;
+        padding: 0.65rem 1.15rem;
+        text-decoration: none;
+        transition:
+            background 160ms ease,
+            border-color 160ms ease,
+            color 160ms ease;
+    }
+
+    .anchor-menu a:hover,
+    .anchor-menu a:focus-visible,
+    .anchor-menu a.active {
+        background: #f59e0b;
+        border-color: #f59e0b;
+        color: #451a03;
+    }
+
+    .slider {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-color: #d97706 #fde68a;
+        padding: 0.5rem 0 1.5rem;
+    }
+
+    .slide {
+        flex: 0 0 100%;
+        scroll-margin-top: 1rem;
+        scroll-snap-align: start;
+        background: white;
+        border: 1px solid #fde68a;
+        box-shadow: 0 12px 30px rgb(120 53 15 / 0.1);
+        padding: clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .slide-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .slide-number {
+        color: #b45309;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding-top: 0.35rem;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+    }
+
+    .slide-heading p {
+        color: #78716c;
+        margin: 0.35rem 0 0;
+    }
+
+    @media (max-width: 640px) {
+        .slider-page {
+            padding-top: 2.5rem;
+        }
+
+        .slide {
+            padding: 1rem;
+        }
+    }
+</style>

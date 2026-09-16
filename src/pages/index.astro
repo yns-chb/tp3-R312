@@ -1,21 +1,79 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
 import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
 import penguins from "../assets/penguins.json";
+
+const species = ["Adelie", "Gentoo", "Chinstrap"] as const;
+const islands = new Set(penguins.map((penguin) => penguin.island));
 ---
 
 <Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
+    <main class="min-h-screen bg-slate-50 text-slate-900">
+        <section class="bg-slate-900 px-6 py-20 text-white">
+            <div class="mx-auto max-w-5xl">
+                <p
+                    class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300"
+                >
+                    Exploration de données
+                </p>
+                <h1
+                    class="max-w-3xl text-4xl font-bold tracking-tight md:text-6xl"
+                >
+                    Comprendre un jeu de données, en quelques points.
+                </h1>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-5xl px-6 py-12">
+            <div class="grid gap-4 md:grid-cols-3"></div>
+
+            <div class="mt-12 grid gap-6 md:grid-cols-2">
+                <a
+                    class="block bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                    href="/Penguins/"
+                >
+                    <p
+                        class="text-sm font-semibold uppercase tracking-wider text-cyan-700"
+                    >
+                        Jeu de données
+                    </p>
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Découvrir les manchots
+                    </h2>
+                    <p class="mt-3 max-w-2xl text-slate-600">
+                        Consultez les données détaillées et explorez les trois
+                        espèces une par une.
+                    </p>
+                    <span class="mt-6 inline-block font-semibold text-cyan-700">
+                        Accéder à l’index des manchots <span aria-hidden="true"
+                            >→</span
+                        >
+                    </span>
+                </a>
+                <a
+                    class="block bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                    href="/Cars/"
+                >
+                    <p
+                        class="text-sm font-semibold uppercase tracking-wider text-amber-700"
+                    >
+                        Jeu de données
+                    </p>
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Découvrir les voitures
+                    </h2>
+                    <p class="mt-3 max-w-2xl text-slate-600">
+                        Analysez la consommation, la puissance et les
+                        caractéristiques des voitures.
+                    </p>
+                    <span
+                        class="mt-6 inline-block font-semibold text-amber-700"
+                    >
+                        Accéder à l’index des voitures <span aria-hidden="true"
+                            >→</span
+                        >
+                    </span>
+                </a>
+            </div>
+        </section>
+    </main>
 </Layout>

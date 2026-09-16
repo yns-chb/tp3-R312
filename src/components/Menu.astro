@@ -1,0 +1,23 @@
+<select id="species">
+    <option value="Adelie">Adelie</option>
+    <option value="Chinstrap">Chinstrap</option>
+    <option value="Gentoo">Gentoo</option>
+</select>
+<script>
+    document.querySelector("#species")?.addEventListener("change", (evt) => {
+        const value = (evt.target as HTMLSelectElement).value;
+        location.pathname = "/Penguins/species/" + value + "/";
+    });
+</script>
+
+<select id="modele">
+    <option value="Moteur">Moteur</option>
+    <option value="Performance">Performance</option>
+    <option value="Poids">Poids</option>
+</select>
+<script>
+    document.querySelector("#modele")?.addEventListener("change", (evt) => {
+        const value = (evt.target as HTMLSelectElement).value;
+        location.pathname = "/Cars/modele/" + value + "/";
+    });
+</script>

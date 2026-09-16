@@ -1,0 +1,217 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+---
+
+<Layout>
+    <main class="slider-page">
+        <header class="slider-header">
+            <p class="eyebrow">Jeu de données</p>
+            <h1>Les trois espèces de manchots</h1>
+            <p class="intro">
+                Faites défiler les graphiques ou utilisez les ancres pour
+                comparer les espèces.
+            </p>
+        </header>
+
+        <nav class="anchor-menu" aria-label="Navigation entre les espèces">
+            <a class="menu-item [&.active]:bg-red-200" href="#adelie">Adélie</a>
+            <a class="menu-item [&.active]:bg-red-200" href="#gentoo">Gentoo</a>
+            <a class="menu-item [&.active]:bg-red-200" href="#chinstrap"
+                >Chinstrap</a
+            >
+        </nav>
+
+        <section class="slider" aria-label="Graphiques des espèces">
+            <article class="slide item" id="adelie">
+                <div class="slide-heading">
+                    <span class="slide-number">01</span>
+                    <div>
+                        <h2>Adélie</h2>
+                        <p>Longueur et profondeur du culmen</p>
+                    </div>
+                </div>
+                <GraphicSpecies species="Adelie" />
+            </article>
+
+            <article class="slide item" id="gentoo">
+                <div class="slide-heading">
+                    <span class="slide-number">02</span>
+                    <div>
+                        <h2>Gentoo</h2>
+                        <p>Longueur et profondeur du culmen</p>
+                    </div>
+                </div>
+                <GraphicSpecies species="Gentoo" />
+            </article>
+
+            <article class="slide item" id="chinstrap">
+                <div class="slide-heading">
+                    <span class="slide-number">03</span>
+                    <div>
+                        <h2>Chinstrap</h2>
+                        <p>Longueur et profondeur du culmen</p>
+                    </div>
+                </div>
+                <GraphicSpecies species="Chinstrap" />
+            </article>
+        </section>
+    </main>
+</Layout>
+
+<script>
+    const menuItems = document.querySelectorAll(".menu-item");
+    const items = document.querySelectorAll(".item");
+
+    console.log("menuItems", menuItems);
+    console.log("items", items);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const id = entry.target.getAttribute("id");
+                const menuItem = document.querySelector(
+                    `.menu-item[href="#${id}"]`,
+                );
+
+                if (entry.isIntersecting) {
+                    menuItem?.classList.add("active");
+                } else {
+                    menuItem?.classList.remove("active");
+                }
+            });
+        },
+        { threshold: 0.5 },
+    );
+
+    items.forEach((item) => {
+        observer.observe(item);
+    });
+</script>
+
+<style>
+    .slider-page {
+        min-height: calc(100vh - 73px);
+        background: #f8fafc;
+        color: #0f172a;
+        padding: 3.5rem clamp(1.25rem, 5vw, 5rem) 5rem;
+    }
+
+    .slider-header,
+    .anchor-menu,
+    .slider {
+        max-width: 72rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .eyebrow {
+        color: #0e7490;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        margin: 0.65rem 0 0;
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    .intro {
+        max-width: 38rem;
+        color: #475569;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin: 1.25rem 0 0;
+    }
+
+    .anchor-menu {
+        display: flex;
+        gap: 0.6rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        overflow-x: auto;
+        padding: 0.25rem 0 0.75rem;
+        scrollbar-width: thin;
+    }
+
+    .anchor-menu a {
+        flex: 0 0 auto;
+        border: 1px solid #cbd5e1;
+        border-radius: 999px;
+        color: #334155;
+        padding: 0.65rem 1.15rem;
+        text-decoration: none;
+        transition:
+            background 160ms ease,
+            border-color 160ms ease,
+            color 160ms ease;
+    }
+
+    .anchor-menu a:hover,
+    .anchor-menu a:focus-visible,
+    .anchor-menu a.active {
+        background: #0e7490;
+        border-color: #0e7490;
+        color: white;
+    }
+
+    .slider {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-color: #0e7490 #e2e8f0;
+        padding: 0.5rem 0 1.5rem;
+    }
+
+    .slide {
+        flex: 0 0 100%;
+        scroll-margin-top: 1rem;
+        scroll-snap-align: start;
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 12px 30px rgb(15 23 42 / 0.08);
+        padding: clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .slide-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .slide-number {
+        color: #0e7490;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding-top: 0.35rem;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+    }
+
+    .slide-heading p {
+        color: #64748b;
+        margin: 0.35rem 0 0;
+    }
+
+    @media (max-width: 640px) {
+        .slider-page {
+            padding-top: 2.5rem;
+        }
+
+        .slide {
+            padding: 1rem;
+        }
+    }
+</style>

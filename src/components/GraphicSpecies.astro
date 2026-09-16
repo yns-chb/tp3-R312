@@ -1,0 +1,31 @@
+---
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+import PlotFigure from "./PlotFigure.astro";
+
+interface Props {
+    species: "Adelie" | "Gentoo" | "Chinstrap";
+}
+
+const { species } = Astro.props;
+const colors = {
+    Adelie: "#2f6f9f",
+    Gentoo: "#d97706",
+    Chinstrap: "#dc2626",
+};
+const penguinsSpecies = penguins.filter(
+    (penguin) => penguin.species === species,
+);
+---
+
+<PlotFigure
+    options={{
+        marks: [
+            Plot.dot(penguinsSpecies, {
+                x: "culmen_length_mm",
+                y: "culmen_depth_mm",
+                stroke: colors[species],
+            }),
+        ],
+    }}
+/>

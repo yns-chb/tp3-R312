@@ -1,0 +1,90 @@
+---
+import GraphicModele from "../../components/GraphicModele.astro";
+import Layout from "../../layouts/Layout.astro";
+import cars from "../../assets/cars.json";
+
+const years = cars.map((car) => car?.year ?? 0);
+const averageMpg = Math.round(
+    cars.reduce((total, car) => total + (car?.["economy (mpg)"] ?? 0), 0) /
+        cars.length,
+);
+const averagePower = Math.round(
+    cars.reduce((total, car) => total + (car?.["power (hp)"] ?? 0), 0) /
+        cars.length,
+);
+---
+
+<Layout>
+    <main class="min-h-screen bg-slate-50 px-6 py-12 text-slate-900 md:py-16">
+        <div class="mx-auto max-w-6xl">
+            <header class="max-w-3xl">
+                <p
+                    class="text-sm font-bold uppercase tracking-[0.2em] text-amber-700"
+                >
+                    Explorer les données automobiles
+                </p>
+                <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+                    Les performances des voitures
+                </h1>
+                <p class="mt-4 text-lg leading-8 text-slate-600">
+                    Comparez la consommation, la puissance et le nombre de
+                    cylindres des voitures présentes dans le jeu de données.
+                </p>
+            </header>
+
+            <section
+                class="mt-10 grid gap-4 md:grid-cols-3"
+                aria-label="Résumé des données"
+            >
+                <article
+                    class="border-l-4 border-amber-500 bg-white p-6 shadow-sm"
+                >
+                    <p class="text-sm font-medium text-slate-500">Voitures</p>
+                    <p class="mt-2 text-4xl font-bold">{cars.length}</p>
+                    <p class="mt-1 text-sm text-slate-500">observations</p>
+                </article>
+                <article
+                    class="border-l-4 border-sky-500 bg-white p-6 shadow-sm"
+                >
+                    <p class="text-sm font-medium text-slate-500">
+                        Consommation moyenne
+                    </p>
+                    <p class="mt-2 text-4xl font-bold">{averageMpg} mpg</p>
+                </article>
+                <article
+                    class="border-l-4 border-rose-500 bg-white p-6 shadow-sm"
+                >
+                    <p class="text-sm font-medium text-slate-500">
+                        Puissance moyenne
+                    </p>
+                    <p class="mt-2 text-4xl font-bold">{averagePower} hp</p>
+                </article>
+            </section>
+
+            <section
+                class="mt-10 bg-white p-4 shadow-lg ring-1 ring-slate-200 md:p-8"
+                aria-label="Graphique des performances automobiles"
+            >
+                <div class="mb-6">
+                    <p
+                        class="text-sm font-bold uppercase tracking-[0.2em] text-amber-700"
+                    >
+                        Vue d'ensemble
+                    </p>
+                    <h2 class="mt-2 text-3xl font-bold">
+                        Puissance et consommation
+                    </h2>
+                    <p class="mt-2 text-slate-600">
+                        Chaque point représente une voiture. La couleur indique
+                        son nombre de cylindres.
+                    </p>
+                </div>
+                <GraphicModele />
+            </section>
+
+            <p class="mt-6 text-sm text-slate-500">
+                Années couvertes : {Math.min(...years)} à {Math.max(...years)}.
+            </p>
+        </div>
+    </main>
+</Layout>

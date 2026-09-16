@@ -1,0 +1,51 @@
+---
+import * as Plot from "@observablehq/plot";
+import cars from "../assets/cars.json";
+import PlotFigure from "./PlotFigure.astro";
+
+interface Props {
+    view?: "performance" | "weight" | "engine";
+}
+
+const { view = "performance" } = Astro.props;
+const chartOptions = {
+    performance: {
+        x: "power (hp)",
+        y: "economy (mpg)",
+        xLabel: "Puissance (hp)",
+        yLabel: "Consommation (mpg)",
+    },
+    weight: {
+        x: "weight (lb)",
+        y: "power (hp)",
+        xLabel: "Poids (lb)",
+        yLabel: "Puissance (hp)",
+    },
+    engine: {
+        x: "displacement (cc)",
+        y: "0-60 mph (s)",
+        xLabel: "Cylindrée (cc)",
+        yLabel: "0 à 60 mph (s)",
+    },
+};
+const chart = chartOptions[view];
+---
+
+<PlotFigure
+    options={{
+        grid: true,
+        x: { label: chart.xLabel },
+        y: { label: chart.yLabel },
+        color: { label: "Cylindres" },
+        marks: [
+            Plot.dot(cars, {
+                x: chart.x,
+                y: chart.y,
+                fill: "cylinders",
+                r: 4,
+                fillOpacity: 0.75,
+                tip: true,
+            }),
+        ],
+    }}
+/>

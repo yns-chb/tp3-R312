@@ -1,0 +1,47 @@
+---
+import PlotFigure from "../../components/PlotFigure.astro";
+import Layout from "../../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../../assets/penguins.json";
+---
+
+<Layout>
+  <main class="min-h-screen bg-slate-50 px-6 py-12 text-slate-900 md:py-16">
+    <div class="mx-auto max-w-6xl">
+     
+      <header class="mt-8 max-w-3xl">
+        <p class="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">
+          Explorer les données
+        </p>
+        <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+          Les espèces de manchots
+        </h1>
+        <p class="mt-4 text-lg leading-8 text-slate-600">
+          Comparez les observations des trois espèces grâce à une vue d’ensemble
+          de leurs mesures.
+        </p>
+      </header>
+      <section
+        class="mt-10 bg-white p-4 shadow-lg ring-1 ring-slate-200 md:p-8"
+        aria-label="Graphique de toutes les espèces"
+      >
+        <PlotFigure
+          options={{
+            grid: true,
+            color: { legend: true },
+            x: { label: "Longueur du culmen (mm)" },
+            y: { label: "Profondeur du culmen (mm)" },
+            marks: [
+              Plot.dot(penguins, {
+                x: "culmen_length_mm",
+                y: "culmen_depth_mm",
+                fill: "species",
+                fillOpacity: 0.8,
+              }),
+            ],
+          }}
+        />
+      </section>
+    </div>
+  </main>
+</Layout>
