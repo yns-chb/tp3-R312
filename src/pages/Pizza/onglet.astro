@@ -1,0 +1,100 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicPizza from "../../components/GraphicPizza.astro";
+import {
+    Tabs,
+    TabsList,
+    TabsTab,
+    TabsPanel,
+} from "accessible-astro-components";
+---
+
+<Layout>
+    <main class="min-h-screen bg-orange-50 px-6 py-12 text-stone-900 md:py-16">
+        <div class="mx-auto max-w-6xl">
+            <header class="max-w-3xl">
+                <p
+                    class="text-sm font-bold uppercase tracking-[0.2em] text-orange-700"
+                >
+                    Vue par catégorie
+                </p>
+                <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+                    Les catégories de pizzas
+                </h1>
+            </header>
+
+            <section class="mt-10" aria-label="Graphiques par catégorie">
+                <Tabs>
+                    <TabsList class="flex gap-2 overflow-x-auto pb-3">
+                        <TabsTab
+                            id="tab-classic"
+                            controls="panel-classic"
+                            selected={true}
+                            class="cursor-pointer rounded-full border border-orange-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-orange-100 focus-visible:outline-2 focus-visible:outline-orange-700 aria-selected:border-orange-600! aria-selected:bg-orange-500! aria-selected:text-white!"
+                        >
+                            Classic
+                        </TabsTab>
+                        <TabsTab
+                            id="tab-specialty"
+                            controls="panel-specialty"
+                            class="cursor-pointer rounded-full border border-orange-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-orange-100 focus-visible:outline-2 focus-visible:outline-orange-700 aria-selected:border-orange-600! aria-selected:bg-orange-500! aria-selected:text-white!"
+                        >
+                            Specialty
+                        </TabsTab>
+                        <TabsTab
+                            id="tab-vegetarian"
+                            controls="panel-vegetarian"
+                            class="cursor-pointer rounded-full border border-orange-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-orange-100 focus-visible:outline-2 focus-visible:outline-orange-700 aria-selected:border-orange-600! aria-selected:bg-orange-500! aria-selected:text-white!"
+                        >
+                            Vegetarian
+                        </TabsTab>
+                    </TabsList>
+
+                    <TabsPanel
+                        id="panel-classic"
+                        labelledby="tab-classic"
+                        selected={true}
+                        class="py-2 pb-6"
+                    >
+                        <article
+                            class="bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                        >
+                            <h2 class="mb-6 text-2xl font-bold">
+                                Pizzas Classic
+                            </h2>
+                            <GraphicPizza category="Classic" />
+                        </article>
+                    </TabsPanel>
+                    <TabsPanel
+                        id="panel-specialty"
+                        labelledby="tab-specialty"
+                        class="py-2 pb-6"
+                    >
+                        <article
+                            class="bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                        >
+                            <h2 class="mb-6 text-2xl font-bold">
+                                Pizzas Specialty
+                            </h2>
+                            <GraphicPizza category="Specialty" />
+                        </article>
+                    </TabsPanel>
+                    <TabsPanel
+                        id="panel-vegetarian"
+                        labelledby="tab-vegetarian"
+                        class="py-2 pb-6"
+                    >
+                        <article
+                            class="bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                        >
+                            <h2 class="mb-6 text-2xl font-bold">
+                                Pizzas Vegetarian
+                            </h2>
+                            <GraphicPizza category="Vegetarian" />
+                        </article>
+                    </TabsPanel>
+                </Tabs>
+            </section>
+        </div>
+    </main>
+</Layout>

@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicPizza from "../../components/GraphicPizza.astro";
+---
+
+<Layout>
+    <main class="min-h-screen bg-orange-50 px-6 py-12 text-stone-900 md:py-16">
+        <div class="mx-auto max-w-6xl">
+            <header class="max-w-3xl">
+                <p
+                    class="text-sm font-bold uppercase tracking-[0.2em] text-orange-700"
+                >
+                    Vue défilante
+                </p>
+                <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+                    Explorer les pizzas
+                </h1>
+                <p class="mt-4 text-lg leading-8 text-stone-600">
+                    Faites défiler les catégories pour comparer leurs ventes.
+                </p>
+            </header>
+
+            <nav
+                class="mt-10 flex gap-2 overflow-x-auto pb-3"
+                aria-label="Navigation entre les catégories"
+            >
+                <a
+                    class="rounded-full border border-orange-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-orange-100"
+                    href="#classic">Classic</a
+                >
+                <a
+                    class="rounded-full border border-orange-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-orange-100"
+                    href="#specialty">Specialty</a
+                >
+                <a
+                    class="rounded-full border border-orange-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-orange-100"
+                    href="#vegetarian">Vegetarian</a
+                >
+            </nav>
+
+            <section
+                class="mt-2 flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6"
+                aria-label="Graphiques des catégories"
+            >
+                <article
+                    id="classic"
+                    class="min-w-full snap-start bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                >
+                    <h2 class="mb-6 text-2xl font-bold">Pizzas Classic</h2>
+                    <GraphicPizza category="Classic" />
+                </article>
+                <article
+                    id="specialty"
+                    class="min-w-full snap-start bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                >
+                    <h2 class="mb-6 text-2xl font-bold">Pizzas Specialty</h2>
+                    <GraphicPizza category="Specialty" />
+                </article>
+                <article
+                    id="vegetarian"
+                    class="min-w-full snap-start bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                >
+                    <h2 class="mb-6 text-2xl font-bold">Pizzas Vegetarian</h2>
+                    <GraphicPizza category="Vegetarian" />
+                </article>
+            </section>
+        </div>
+    </main>
+</Layout>

@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicPizza from "../../components/GraphicPizza.astro";
+import pizza from "../../assets/pizza.json";
+
+const totalOrders = pizza.reduce((total, item) => total + item.orders, 0);
+const totalRevenue = pizza.reduce((total, item) => total + item.revenue, 0);
+const categories = new Set(pizza.map((item) => item.category)).size;
+---
+
+<Layout>
+    <main class="min-h-screen bg-orange-50 px-6 py-12 text-stone-900 md:py-16">
+        <div class="mx-auto max-w-6xl">
+            <header class="max-w-3xl">
+                <p
+                    class="text-sm font-bold uppercase tracking-[0.2em] text-orange-700"
+                >
+                    Explorer les données de pizzas
+                </p>
+                <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+                    Les ventes de pizzas
+                </h1>
+                <p class="mt-4 text-lg leading-8 text-stone-600">
+                    Comparez les prix et les commandes selon les catégories de
+                    pizzas.
+                </p>
+            </header>
+
+            <section
+                class="mt-10 grid gap-4 md:grid-cols-3"
+                aria-label="Résumé des ventes"
+            >
+                <article
+                    class="border-l-4 border-orange-500 bg-white p-6 shadow-sm"
+                >
+                    <p class="text-sm font-medium text-stone-500">Commandes</p>
+                    <p class="mt-2 text-4xl font-bold">{totalOrders}</p>
+                </article>
+                <article
+                    class="border-l-4 border-red-500 bg-white p-6 shadow-sm"
+                >
+                    <p class="text-sm font-medium text-stone-500">
+                        Chiffre d'affaires
+                    </p>
+                    <p class="mt-2 text-4xl font-bold">{totalRevenue} $</p>
+                </article>
+                <article
+                    class="border-l-4 border-amber-500 bg-white p-6 shadow-sm"
+                >
+                    <p class="text-sm font-medium text-stone-500">Catégories</p>
+                    <p class="mt-2 text-4xl font-bold">{categories}</p>
+                </article>
+            </section>
+
+            <section
+                class="mt-10 bg-white p-4 shadow-lg ring-1 ring-orange-200 md:p-8"
+                aria-label="Graphique des ventes de pizzas"
+            >
+                <GraphicPizza />
+            </section>
+        </div>
+    </main>
+</Layout>

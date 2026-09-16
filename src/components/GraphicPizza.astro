@@ -1,0 +1,33 @@
+---
+import * as Plot from "@observablehq/plot";
+import pizza from "../assets/pizza.json";
+import PlotFigure from "./PlotFigure.astro";
+
+interface Props {
+    category?: "Classic" | "Specialty" | "Vegetarian";
+}
+
+const { category } = Astro.props;
+const data = category
+    ? pizza.filter((item) => item.category === category)
+    : pizza;
+---
+
+<PlotFigure
+    options={{
+        grid: true,
+        x: { label: "Prix moyen ($)" },
+        y: { label: "Commandes" },
+        color: { legend: true },
+        marks: [
+            Plot.dot(data, {
+                x: "price",
+                y: "orders",
+                fill: "category",
+                fillOpacity: 0.7,
+                r: 4,
+                tip: true,
+            }),
+        ],
+    }}
+/>
