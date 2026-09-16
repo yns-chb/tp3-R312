@@ -15,11 +15,12 @@ import GraphicSpecies from "../../components/GraphicSpecies.astro";
         </header>
 
         <nav class="anchor-menu" aria-label="Navigation entre les espèces">
-            <a class="menu-item [&.active]:bg-red-200" href="#adelie">Adélie</a>
-            <a class="menu-item [&.active]:bg-red-200" href="#gentoo">Gentoo</a>
-            <a class="menu-item [&.active]:bg-red-200" href="#chinstrap"
-                >Chinstrap</a
-            >
+            <label for="species-slide">Choisir une espèce</label>
+            <select id="species-slide">
+                <option value="adelie">Adélie</option>
+                <option value="gentoo">Gentoo</option>
+                <option value="chinstrap">Chinstrap</option>
+            </select>
         </nav>
 
         <section class="slider" aria-label="Graphiques des espèces">
@@ -60,24 +61,21 @@ import GraphicSpecies from "../../components/GraphicSpecies.astro";
 </Layout>
 
 <script>
-    const menuItems = document.querySelectorAll(".menu-item");
+    const speciesSelect =
+        document.querySelector<HTMLSelectElement>("#species-slide");
     const items = document.querySelectorAll(".item");
 
-    console.log("menuItems", menuItems);
-    console.log("items", items);
+    speciesSelect?.addEventListener("change", (event) => {
+        const value = (event.target as HTMLSelectElement).value;
+        location.hash = value;
+    });
 
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 const id = entry.target.getAttribute("id");
-                const menuItem = document.querySelector(
-                    `.menu-item[href="#${id}"]`,
-                );
-
                 if (entry.isIntersecting) {
-                    menuItem?.classList.add("active");
-                } else {
-                    menuItem?.classList.remove("active");
+                    speciesSelect && (speciesSelect.value = id ?? "");
                 }
             });
         },
@@ -138,25 +136,18 @@ import GraphicSpecies from "../../components/GraphicSpecies.astro";
         scrollbar-width: thin;
     }
 
-    .anchor-menu a {
-        flex: 0 0 auto;
-        border: 1px solid #cbd5e1;
-        border-radius: 999px;
-        color: #334155;
-        padding: 0.65rem 1.15rem;
-        text-decoration: none;
-        transition:
-            background 160ms ease,
-            border-color 160ms ease,
-            color 160ms ease;
+    .anchor-menu label {
+        color: #475569;
+        font-weight: 700;
     }
 
-    .anchor-menu a:hover,
-    .anchor-menu a:focus-visible,
-    .anchor-menu a.active {
-        background: #0e7490;
-        border-color: #0e7490;
-        color: white;
+    .anchor-menu select {
+        min-width: 12rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+        color: #334155;
+        padding: 0.65rem 1.15rem;
+        background: white;
     }
 
     .slider {

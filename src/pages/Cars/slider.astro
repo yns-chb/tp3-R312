@@ -15,14 +15,12 @@ import GraphicModele from "../../components/GraphicModele.astro";
         </header>
 
         <nav class="anchor-menu" aria-label="Navigation entre les graphiques">
-            <a class="menu-item [&.active]:bg-amber-200" href="#performance"
-                >Performance</a
-            >
-            <a class="menu-item [&.active]:bg-amber-200" href="#weight">Poids</a
-            >
-            <a class="menu-item [&.active]:bg-amber-200" href="#engine"
-                >Moteur</a
-            >
+            <label for="car-slide">Choisir un graphique</label>
+            <select id="car-slide">
+                <option value="performance">Performance</option>
+                <option value="weight">Poids</option>
+                <option value="engine">Moteur</option>
+            </select>
         </nav>
 
         <section class="slider" aria-label="Graphiques des voitures">
@@ -63,24 +61,20 @@ import GraphicModele from "../../components/GraphicModele.astro";
 </Layout>
 
 <script>
-    const menuItems = document.querySelectorAll(".menu-item");
+    const carSelect = document.querySelector<HTMLSelectElement>("#car-slide");
     const items = document.querySelectorAll(".item");
 
-    console.log("menuItems", menuItems);
-    console.log("items", items);
+    carSelect?.addEventListener("change", (event) => {
+        const value = (event.target as HTMLSelectElement).value;
+        location.hash = value;
+    });
 
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 const id = entry.target.getAttribute("id");
-                const menuItem = document.querySelector(
-                    `.menu-item[href="#${id}"]`,
-                );
-
                 if (entry.isIntersecting) {
-                    menuItem?.classList.add("active");
-                } else {
-                    menuItem?.classList.remove("active");
+                    carSelect && (carSelect.value = id ?? "");
                 }
             });
         },
@@ -138,25 +132,18 @@ import GraphicModele from "../../components/GraphicModele.astro";
         padding: 0.25rem 0 0.75rem;
     }
 
-    .anchor-menu a {
-        flex: 0 0 auto;
-        border: 1px solid #d6d3d1;
-        border-radius: 999px;
-        color: #44403c;
-        padding: 0.65rem 1.15rem;
-        text-decoration: none;
-        transition:
-            background 160ms ease,
-            border-color 160ms ease,
-            color 160ms ease;
+    .anchor-menu label {
+        color: #57534e;
+        font-weight: 700;
     }
 
-    .anchor-menu a:hover,
-    .anchor-menu a:focus-visible,
-    .anchor-menu a.active {
-        background: #f59e0b;
-        border-color: #f59e0b;
-        color: #451a03;
+    .anchor-menu select {
+        min-width: 12rem;
+        border: 1px solid #d6d3d1;
+        border-radius: 0.5rem;
+        color: #44403c;
+        padding: 0.65rem 1.15rem;
+        background: white;
     }
 
     .slider {

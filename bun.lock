@@ -8,6 +8,7 @@
         "@astrojs/netlify": "^8.2.3",
         "@observablehq/plot": "^0.6.17",
         "@tailwindcss/vite": "^4.3.3",
+        "accessible-astro-components": "^5.8.0",
         "astro": "^7.2.4",
         "jsdom": "^30.0.1",
         "tailwindcss": "^4.3.3",
@@ -495,6 +496,8 @@
     "abbrev": ["abbrev@3.0.1", "", {}, "sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg=="],
 
     "abort-controller": ["abort-controller@3.0.0", "", { "dependencies": { "event-target-shim": "^5.0.0" } }, "sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg=="],
+
+    "accessible-astro-components": ["accessible-astro-components@5.8.0", "", { "peerDependencies": { "astro": "^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-TYGVy+u0pCRQJl4gp0r397YsNfM6R+ZTDj5sbatadFuxAdQ92qlhJg31S55nWUkFUre8zHoZvPIo4GWxCHVXTQ=="],
 
     "acorn": ["acorn@8.18.0", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-lGq+9yr1/GuAWaVYIHRjvvySG5/4VfKIvC8EWxStPdcDh/Ka7FG3twP6v4d5BkravUilhIAsG4Qj83t02LWUPQ=="],
 

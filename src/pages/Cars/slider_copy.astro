@@ -1,0 +1,196 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicModele from "../../components/GraphicModele.astro";
+import {
+    Tabs,
+    TabsList,
+    TabsTab,
+    TabsPanel,
+} from "accessible-astro-components";
+---
+
+<Layout>
+    <main class="slider-page">
+        <header class="slider-header">
+            <p class="eyebrow">Jeu de données automobile</p>
+            <h1>Explorer les voitures</h1>
+            <p class="intro">
+                Faites défiler les graphiques ou utilisez les ancres pour
+                comparer différentes caractéristiques des voitures.
+            </p>
+        </header>
+
+        <section class="tabs-shell" aria-label="Graphiques des voitures">
+            <Tabs>
+                <TabsList class="flex gap-2 overflow-x-auto pb-3">
+                    <TabsTab
+                        id="tab-performance"
+                        controls="panel-performance"
+                        selected={true}
+                        class="cursor-pointer rounded-full border border-stone-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-amber-100 focus-visible:outline-2 focus-visible:outline-amber-600 aria-selected:border-amber-500! aria-selected:bg-amber-500! aria-selected:text-amber-950!"
+                    >
+                        Performance
+                    </TabsTab>
+                    <TabsTab
+                        id="tab-weight"
+                        controls="panel-weight"
+                        class="cursor-pointer rounded-full border border-stone-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-amber-100 focus-visible:outline-2 focus-visible:outline-amber-600 aria-selected:border-amber-500! aria-selected:bg-amber-500! aria-selected:text-amber-950!"
+                    >
+                        Poids
+                    </TabsTab>
+                    <TabsTab
+                        id="tab-engine"
+                        controls="panel-engine"
+                        class="cursor-pointer rounded-full border border-stone-300 bg-white px-5 py-2.5 text-stone-700 hover:bg-amber-100 focus-visible:outline-2 focus-visible:outline-amber-600 aria-selected:border-amber-500! aria-selected:bg-amber-500! aria-selected:text-amber-950!"
+                    >
+                        Moteur
+                    </TabsTab>
+                </TabsList>
+
+                <TabsPanel
+                    id="panel-performance"
+                    labelledby="tab-performance"
+                    selected={true}
+                    class="py-2 pb-6"
+                >
+                    <article class="slide">
+                        <div class="slide-heading">
+                            <span class="slide-number">01</span>
+                            <div>
+                                <h2>Performance et consommation</h2>
+                                <p>
+                                    La puissance comparée à l'économie de
+                                    carburant
+                                </p>
+                            </div>
+                        </div>
+                        <GraphicModele view="performance" />
+                    </article>
+                </TabsPanel>
+
+                <TabsPanel
+                    id="panel-weight"
+                    labelledby="tab-weight"
+                    class="py-2 pb-6"
+                >
+                    <article class="slide">
+                        <div class="slide-heading">
+                            <span class="slide-number">02</span>
+                            <div>
+                                <h2>Poids et puissance</h2>
+                                <p>
+                                    Le poids du véhicule comparé à sa puissance
+                                </p>
+                            </div>
+                        </div>
+                        <GraphicModele view="weight" />
+                    </article>
+                </TabsPanel>
+
+                <TabsPanel
+                    id="panel-engine"
+                    labelledby="tab-engine"
+                    class="py-2 pb-6"
+                >
+                    <article class="slide">
+                        <div class="slide-heading">
+                            <span class="slide-number">03</span>
+                            <div>
+                                <h2>Moteur et accélération</h2>
+                                <p>
+                                    La cylindrée comparée au temps de 0 à 60 mph
+                                </p>
+                            </div>
+                        </div>
+                        <GraphicModele view="engine" />
+                    </article>
+                </TabsPanel>
+            </Tabs>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .slider-page {
+        min-height: 100vh;
+        background: #fffbeb;
+        color: #1c1917;
+        padding: 3.5rem clamp(1.25rem, 5vw, 5rem) 5rem;
+    }
+
+    .slider-header,
+    .tabs-shell {
+        max-width: 72rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .eyebrow {
+        color: #b45309;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        margin: 0.65rem 0 0;
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    .intro {
+        max-width: 38rem;
+        color: #57534e;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin: 1.25rem 0 0;
+    }
+
+    .tabs-shell {
+        margin-top: 2.5rem;
+    }
+
+    .slide {
+        background: white;
+        border: 1px solid #fde68a;
+        box-shadow: 0 12px 30px rgb(120 53 15 / 0.1);
+        padding: clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .slide-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .slide-number {
+        color: #b45309;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding-top: 0.35rem;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+    }
+
+    .slide-heading p {
+        color: #78716c;
+        margin: 0.35rem 0 0;
+    }
+
+    @media (max-width: 640px) {
+        .slider-page {
+            padding-top: 2.5rem;
+        }
+
+        .slide {
+            padding: 1rem;
+        }
+    }
+</style>

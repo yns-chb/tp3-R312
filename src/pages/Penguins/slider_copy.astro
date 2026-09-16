@@ -1,0 +1,189 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+import {
+    Tabs,
+    TabsList,
+    TabsTab,
+    TabsPanel,
+} from "accessible-astro-components";
+---
+
+<Layout>
+    <main class="slider-page">
+        <header class="slider-header">
+            <p class="eyebrow">Jeu de données</p>
+            <h1>Les trois espèces de manchots</h1>
+            <p class="intro">
+                Faites défiler les graphiques ou utilisez les ancres pour
+                comparer les espèces.
+            </p>
+        </header>
+
+        <section class="tabs-shell" aria-label="Graphiques des espèces">
+            <Tabs>
+                <TabsList class="flex gap-2 overflow-x-auto pb-3">
+                    <TabsTab
+                        id="tab-adelie"
+                        controls="panel-adelie"
+                        selected={true}
+                        class="cursor-pointer rounded-full border border-slate-300 bg-white px-5 py-2.5 text-slate-700 hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-cyan-700 aria-selected:border-cyan-700! aria-selected:bg-cyan-700! aria-selected:text-white!"
+                    >
+                        Adélie
+                    </TabsTab>
+                    <TabsTab
+                        id="tab-gentoo"
+                        controls="panel-gentoo"
+                        class="cursor-pointer rounded-full border border-slate-300 bg-white px-5 py-2.5 text-slate-700 hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-cyan-700 aria-selected:border-cyan-700! aria-selected:bg-cyan-700! aria-selected:text-white!"
+                    >
+                        Gentoo
+                    </TabsTab>
+                    <TabsTab
+                        id="tab-chinstrap"
+                        controls="panel-chinstrap"
+                        class="cursor-pointer rounded-full border border-slate-300 bg-white px-5 py-2.5 text-slate-700 hover:bg-cyan-100 focus-visible:outline-2 focus-visible:outline-cyan-700 aria-selected:border-cyan-700! aria-selected:bg-cyan-700! aria-selected:text-white!"
+                    >
+                        Chinstrap
+                    </TabsTab>
+                </TabsList>
+
+                <TabsPanel
+                    id="panel-adelie"
+                    labelledby="tab-adelie"
+                    selected={true}
+                    class="py-2 pb-6"
+                >
+                    <article class="slide">
+                        <div class="slide-heading">
+                            <span class="slide-number">01</span>
+                            <div>
+                                <h2>Adélie</h2>
+                                <p>Longueur et profondeur du culmen</p>
+                            </div>
+                        </div>
+                        <GraphicSpecies species="Adelie" />
+                    </article>
+                </TabsPanel>
+
+                <TabsPanel
+                    id="panel-gentoo"
+                    labelledby="tab-gentoo"
+                    class="py-2 pb-6"
+                >
+                    <article class="slide">
+                        <div class="slide-heading">
+                            <span class="slide-number">02</span>
+                            <div>
+                                <h2>Gentoo</h2>
+                                <p>Longueur et profondeur du culmen</p>
+                            </div>
+                        </div>
+                        <GraphicSpecies species="Gentoo" />
+                    </article>
+                </TabsPanel>
+
+                <TabsPanel
+                    id="panel-chinstrap"
+                    labelledby="tab-chinstrap"
+                    class="py-2 pb-6"
+                >
+                    <article class="slide">
+                        <div class="slide-heading">
+                            <span class="slide-number">03</span>
+                            <div>
+                                <h2>Chinstrap</h2>
+                                <p>Longueur et profondeur du culmen</p>
+                            </div>
+                        </div>
+                        <GraphicSpecies species="Chinstrap" />
+                    </article>
+                </TabsPanel>
+            </Tabs>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .slider-page {
+        min-height: calc(100vh - 73px);
+        background: #f8fafc;
+        color: #0f172a;
+        padding: 3.5rem clamp(1.25rem, 5vw, 5rem) 5rem;
+    }
+
+    .slider-header,
+    .tabs-shell {
+        max-width: 72rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .eyebrow {
+        color: #0e7490;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        margin: 0.65rem 0 0;
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    .intro {
+        max-width: 38rem;
+        color: #475569;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin: 1.25rem 0 0;
+    }
+
+    .tabs-shell {
+        margin-top: 2.5rem;
+    }
+
+    .slide {
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 12px 30px rgb(15 23 42 / 0.08);
+        padding: clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .slide-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .slide-number {
+        color: #0e7490;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        padding-top: 0.35rem;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+    }
+
+    .slide-heading p {
+        color: #64748b;
+        margin: 0.35rem 0 0;
+    }
+
+    @media (max-width: 640px) {
+        .slider-page {
+            padding-top: 2.5rem;
+        }
+
+        .slide {
+            padding: 1rem;
+        }
+    }
+</style>
